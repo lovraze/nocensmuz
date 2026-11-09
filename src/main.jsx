@@ -14,6 +14,7 @@ import {
   AudioLines
 } from "lucide-react";
 import "./style.css";
+import Auth from "./Auth";
 
 const demoTracks = [
   { id: "1", title: "Midnight Drive", artist: "NOVA", genre: "Electronic", duration: "3:42", color: "violet" },
@@ -428,4 +429,8 @@ function App() {
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(
+  <Auth>
+    <App />
+  </Auth>
+);

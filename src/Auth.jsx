@@ -101,14 +101,34 @@ export default function Auth({ children }) {
           required
         />
 
-        <button type="submit">
+        <button
+  type="submit"
+  style={{
+    background: "linear-gradient(135deg, #8b5cf6, #6d28d9)",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "12px",
+    padding: "14px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer"
+  }}
+>
           {register ? "Зарегистрироваться" : "Войти"}
         </button>
 
         {message && <p>{message}</p>}
 
         <button
-          type="button"
+  type="button"
+  style={{
+    background: "transparent",
+    color: "#c4a5ff",
+    border: "none",
+    padding: "12px",
+    fontSize: "14px",
+    cursor: "pointer"
+  }}
           onClick={() => {
             setRegister(!register);
             setMessage("");

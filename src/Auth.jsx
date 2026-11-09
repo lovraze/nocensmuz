@@ -32,13 +32,11 @@ export default function Auth({ children }) {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          data: { username }
-        }
+        options: { data: { username } }
       });
 
       if (error) setMessage(error.message);
-      else setMessage("Регистрация отправлена! Проверь почту для подтверждения.");
+      else setMessage("Регистрация отправлена! Проверь почту.");
     } else {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -49,9 +47,34 @@ export default function Auth({ children }) {
     }
   }
 
-  if (loading) return <p>Загрузка...</p>;
-
+  if (loading) return <p style={{color:"white"}}>Загрузка...</p>;
   if (session) return children;
+
+  const inputStyle = {
+    width: "100%",
+    boxSizing: "border-box",
+    padding: "14px",
+    background: "#292933",
+    color: "#ffffff",
+    border: "1px solid #414154",
+    borderRadius: "10px",
+    fontSize: "15px",
+    outline: "none"
+  };
+
+  const buttonStyle = {
+    width: "100%",
+    boxSizing: "border-box",
+    padding: "15px",
+    background: "linear-gradient(135deg, #9b6cff, #7138db)",
+    color: "#ffffff",
+    border: "0",
+    borderRadius: "10px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    appearance: "none"
+  };
 
   return (
     <div style={{
@@ -61,22 +84,29 @@ export default function Auth({ children }) {
       background: "#101014",
       color: "white",
       fontFamily: "Arial, sans-serif",
-      padding: 20
+      padding: "20px",
+      boxSizing: "border-box"
     }}>
       <form onSubmit={handleSubmit} style={{
         width: "100%",
-        maxWidth: 380,
+        maxWidth: "380px",
         display: "grid",
-        gap: 14,
-        padding: 28,
+        gap: "15px",
+        padding: "28px",
+        boxSizing: "border-box",
         background: "#1d1d25",
-        borderRadius: 16
+        border: "1px solid #333342",
+        borderRadius: "18px"
       }}>
-        <h1>NoCensMuz</h1>
+        <h1 style={{margin: 0}}>
+          NoCens<span style={{color:"#a77aff"}}>Muz</span>
+        </h1>
+
         <h2>{register ? "Создать аккаунт" : "Вход"}</h2>
 
         {register && (
           <input
+            style={inputStyle}
             placeholder="Имя пользователя"
             value={username}
             onChange={e => setUsername(e.target.value)}
@@ -85,6 +115,7 @@ export default function Auth({ children }) {
         )}
 
         <input
+          style={inputStyle}
           type="email"
           placeholder="Электронная почта"
           value={email}
@@ -93,6 +124,7 @@ export default function Auth({ children }) {
         />
 
         <input
+          style={inputStyle}
           type="password"
           placeholder="Пароль (минимум 6 символов)"
           value={password}
@@ -101,37 +133,28 @@ export default function Auth({ children }) {
           required
         />
 
-        <button
-  type="submit"
-  style={{
-    background: "linear-gradient(135deg, #8b5cf6, #6d28d9)",
-    color: "#ffffff",
-    border: "none",
-    borderRadius: "12px",
-    padding: "14px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer"
-  }}
->
+        <button type="submit" style={buttonStyle}>
           {register ? "Зарегистрироваться" : "Войти"}
         </button>
 
-        {message && <p>{message}</p>}
+        {message && (
+          <p style={{color:"#c4a5ff", fontSize:"14px"}}>
+            {message}
+          </p>
+        )}
 
         <button
-  type="button"
-  style={{
-    background: "transparent",
-    color: "#c4a5ff",
-    border: "none",
-    padding: "12px",
-    fontSize: "14px",
-    cursor: "pointer"
-  }}
+          type="button"
           onClick={() => {
             setRegister(!register);
             setMessage("");
+          }}
+          style={{
+            ...buttonStyle,
+            background: "#292433",
+            color: "#c4a5ff",
+            fontSize: "14px",
+            fontWeight: "normal"
           }}
         >
           {register

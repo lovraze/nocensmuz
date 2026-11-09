@@ -27,6 +27,7 @@ const genres = ["Все", "Electronic", "Hip-hop", "Indie", "Alternative", "Pop"
 const visible = useMemo(() => tracks.filter(t =>
 (genre === "Все" || t.genre === genre) &&
 `${t.title} ${t.artist} ${t.genre}`.toLowerCase().includes(query.toLowerCase())
+), [tracks, genre, query]); 
 
 function toggleFavorite(id) {
 setFavorites(old => old.includes(id) ? old.filter(x => x !== id) : [...old, id]);
